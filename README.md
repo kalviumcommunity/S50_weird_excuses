@@ -15,7 +15,7 @@ To set up and run the project, follow these steps:
 1.Clone the repository to your local machine:
 
 ```
-git clone https://github.com/your-username/outrageous-excuses.git
+git clone https://github.com/kalviumcommunity/S50_weird_excuses.git
 ```
 
 2.Navigate to the project directory:

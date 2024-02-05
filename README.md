@@ -20,7 +20,7 @@ git clone https://github.com/kalviumcommunity/S50_weird_excuses.git
 
 2.Navigate to the project directory:
 ```
-cd outrageous-excuses
+cd S50_weird_excuses
 ```
 
 3.Install dependencies:

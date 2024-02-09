@@ -9,3 +9,9 @@ get {
   body: none
   auth: none
 }
+
+catch {
+  error: any
+  body: |
+    log.error("An error occurred during the HTTP request: {error.message}")
+}

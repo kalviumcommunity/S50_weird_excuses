@@ -35,7 +35,7 @@ npm install
 npm run start
 ```
 
-##Dependencies
+## Dependencies
 - MongoDB
 - Express
 - React

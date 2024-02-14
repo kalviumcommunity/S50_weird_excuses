@@ -1,12 +1,18 @@
-const express=require("express")
 require('dotenv').config();
+const express=require("express")
+const database = require("./config/database");
+const { usermodel,postmodel} = require("./model/users")
 
 const app = express()
-
 const port = process.env.PORT;
 
-app.get("/ping",(req,res)=>{
-    res.json({name:"Pratham Shailesh Dsouza"})
+app.use(express.json())
+
+database();
+
+app.get("/ping",async(req,res)=>{
+    const data = await usermodel.find()
+    res.json(data)
 })
 
 app.listen(port, (err) => {

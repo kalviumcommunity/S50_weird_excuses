@@ -1,19 +1,18 @@
 require('dotenv').config();
 const express=require("express")
 const database = require("./config/database");
-const { usermodel,postmodel} = require("./model/users")
+const homeroute =require("./routes/home")
+const excuseroute = require("./routes/excuses")
 
 const app = express()
 const port = process.env.PORT;
 
 app.use(express.json())
 
-database();
+app.use("/",homeroute)
+app.use("/",excuseroute)
 
-app.get("/ping",async(req,res)=>{
-    const data = await usermodel.find()
-    res.json(data)
-})
+database();
 
 app.listen(port, (err) => {
     if (err) {

@@ -1,14 +1,45 @@
 const express = require("express");
-const router = express.Router();
 const { postmodel } = require("../model/users");
+const { body, validationResult } = require("express-validator");
 
-router.post("/excuse", async (req, res) => {
+const router = express.Router();
+
+const validateCreateUser = [
+    body("User_ID").isNumeric(),
+    body("User_Name").isString(),
+    body("Email").isEmail(),
+    body("Password").isString(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+];
+
+const validateUpdateUser = [
+    body("User_ID").isNumeric(),
+    body("User_Name").isString().notEmpty(),
+    body("Email").isEmail(),
+    body("Password").isString().notEmpty(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+];
+
+
+
+router.post("/excuse",validateCreateUser, async (req, res) => {
   try {
     const newUser = await postmodel.create(req.body);
     res.status(201).json(newUser);
   } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    next(error);
   }
 });
 
@@ -17,8 +48,7 @@ router.get("/excuse", async (req, res) => {
     const data = await postmodel.find();
     res.json(data);
   } catch (error) {
-    console.error("Error while getting the data:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    next(error);
   }
 });
 
@@ -30,12 +60,11 @@ router.get("/excuse/:id", async (req, res) => {
     }
     res.json(user);
   } catch (error) {
-    console.error("Error getting user:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    next(error);
   }
 });
 
-router.put("/excuse/:id", async (req, res) => {
+router.put("/excuse/:id",validateUpdateUser, async (req, res) => {
   try {
     const updatedUser = await postmodel.findByIdAndUpdate(
       req.params.id,
@@ -46,9 +75,8 @@ router.put("/excuse/:id", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.json(updatedUser);
-  } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+  }catch (error) {
+    next(error);
   }
 });
 
@@ -60,9 +88,13 @@ router.delete("/excuse/:id", async (req, res) => {
     }
     res.json({ message: "User deleted successfully" });
   } catch (error) {
-    console.error("Error deleting user:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    next(error);
   }
+});
+
+router.use((err, req, res, next) => {
+  console.error("Error:", err);
+  res.status(500).json({ error: "Internal Server Error" });
 });
 
 module.exports = router;

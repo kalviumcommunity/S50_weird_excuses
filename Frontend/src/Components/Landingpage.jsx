@@ -1,14 +1,23 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import bcrypt from 'bcryptjs'
 import guyImage from '../Images/man.png';
 
 const LandingPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-  const onSubmit = () => {
-    setRegistrationSuccess(true);
+  const onSubmit = async (data) => {
+    try {
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+
+      console.log("Hashed password:", hashedPassword);
+
+      setRegistrationSuccess(true);
+    } catch (error) {
+      console.error("Error hashing password:", error);
+    }
   };
 
   return (
@@ -24,7 +33,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="w-1/2 px-4">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Discover the Art of Fashionably Late</h1>
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Discover the Art of Fashionably Late</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             {registrationSuccess && (
               <div className="bg-green-500 text-white px-4 py-2 mb-4 rounded">
@@ -33,8 +42,8 @@ const LandingPage = () => {
             )}
             <InputWithError
               register={register}
-              name="firstName"
-              label="First Name"
+              name="fullname"
+              label="Full Name"
               rules={{ required: true, minLength: 4 }}
               errors={errors}
             />
@@ -42,7 +51,7 @@ const LandingPage = () => {
             <InputWithError
               register={register}
               name="lastName"
-              label="Last Name"
+              label="Unique UserName"
               rules={{ required: true, minLength: 4 }}
               errors={errors}
             />

@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './Components/Landingpage';
-import Firstpage from './Components/Firstpage';
+import Firstpage from './Components/Mainpage';
 
 
 function App() {

@@ -1,13 +1,16 @@
 import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './Components/Landingpage';
+import LandingPage from './Components/Landingpage';
+import Firstpage from './Components/Mainpage';
+
 
 function App() {
   return (
     <div>
     <Routes>
-      <Route path="/" element={<Login/>} />
+    <Route path="/" element={<LandingPage />} />
+        <Route path="/firstpage" element={<Firstpage />} />
     </Routes>
     </div>
   );

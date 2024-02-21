@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { AiFillHome, AiFillBell } from "react-icons/ai";
 import { FaBookmark } from "react-icons/fa";
 import Post from "./Post";
-import excusesData from "../data.json";
+// import excusesData from "../data.json";
+import axios from "axios"
 
 function Mainpage() {
   const [showComments, setShowComments] = useState({});
+  const [excusesData, setExcusesData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/excuse");
+        setExcusesData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const toggleComments = (index) => {
     setShowComments((prevShowComments) => ({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useForm } from "react-hook-form";
 import bcrypt from "bcryptjs";
 import guyImage from "../Images/man.png";

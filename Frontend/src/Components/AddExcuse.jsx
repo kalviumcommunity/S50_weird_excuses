@@ -5,6 +5,7 @@ import { useState } from 'react';
 const ExcusePopup = ({ showPopup,setShowPopup }) => {
     const [excuse, setExcuse] = useState('');
     const [excuses, setExcuses] = useState([]);
+    
 
     const handleAddExcuse = async () => {
         try {

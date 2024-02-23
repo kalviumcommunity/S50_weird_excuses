@@ -1,14 +1,25 @@
 const express = require("express");
 const { usermodel} = require("../model/users");
+const bcrypt = require("bcryptjs");
+
 // const { createUser } = require("../controllers/userController");
 // const { loginUser } = require("../controllers/userController");
 
 const router = express.Router();
 
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
-    const newUser = await usermodel.create(req.body);
+    const { User_Name, Email, Password } = req.body;
+
+    const hashedPassword = await bcrypt.hash(Password, 10); 
+
+    const newUser = await usermodel.create({
+      User_Name,
+      Email,
+      Password: hashedPassword,
+    });
+
     res.status(201).json(newUser);
   } catch (error) {
     next(error);

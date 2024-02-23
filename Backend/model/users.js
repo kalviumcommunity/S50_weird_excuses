@@ -1,10 +1,27 @@
 const mongoose=require("mongoose")
+const bcrypt = require("bcryptjs");
+
 
 let userSchema = new mongoose.Schema({
     "User_Name": String,
     "Email": String,
     "Password": String
 })
+
+userSchema.pre("save", async function(next) {
+  if (!this.isModified("Password")) {
+    return next();
+  }
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(this.Password, salt);
+    this.Password = hashedPassword;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 let postschema = new mongoose.Schema({
     "User_Name":String,

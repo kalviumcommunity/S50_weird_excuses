@@ -4,23 +4,18 @@ const cors=require("cors")
 const database = require("./config/database");
 const homeroute =require("./routes/home")
 const excuseroute = require("./routes/excuses")
-
 const app = express()
 const port = process.env.PORT;
 
-const corsOptions = {
-    origin: ['http://localhost:3000'], 
-    optionsSuccessStatus: 200 
-  };
-  
-  app.use(cors(corsOptions));
-
-app.use(express.json())
-
-app.use("/",homeroute)
-app.use("/",excuseroute)
 
 database();
+  
+app.use(cors());
+
+app.use(express.json())
+app.use("/users",homeroute)
+app.use("/excuse",excuseroute)
+
 
 app.listen(port, (err) => {
     if (err) {

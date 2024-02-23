@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import bcrypt from "bcryptjs";
 import guyImage from "../Images/man.png";
 import { useNavigate } from "react-router-dom";
+import SignupForm from "./SignupForm";
+import LoginForm from "./LoginForm";
 
 const LandingPage = () => {
   const {
@@ -20,7 +22,7 @@ const LandingPage = () => {
       const hashedPassword = await bcrypt.hash(data.password, 10);
       console.log("Hashed password:", hashedPassword);
       setRegistrationSuccess(true);
-      handleLogin()
+      handleLogin();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -41,7 +43,7 @@ const LandingPage = () => {
   };
 
   const handleLogin = () => {
-    navigate('/firstpage'); 
+    navigate("/firstpage");
   };
 
   return (
@@ -129,90 +131,19 @@ const LandingPage = () => {
               )}
 
               {isLoginPage ? (
-                <React.Fragment>
-                  <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-                  <input
-                    {...register("email", { required: true })}
-                    className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
-                    placeholder="Email"
-                    type="text"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500">Email is required</p>
-                  )}
-                  <input
-                    {...register("password", { required: true })}
-                    className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
-                    placeholder="Password"
-                    type="password"
-                  />
-                  {errors.password && (
-                    <p className="text-red-500">Password is required</p>
-                  )}
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 w-full"
-                  >
-                    Login
-                  </button>
-                  <p className="text-center mt-4">
-                    Don't have an account?{" "}
-                    <span
-                      className="text-blue-500 cursor-pointer"
-                      onClick={goToSignUpPage}
-                    >
-                      Sign Up
-                    </span>
-                  </p>
-                </React.Fragment>
+                <LoginForm
+                  goToSignUpPage={goToSignUpPage}
+                  onSubmit={handleSubmit(onSubmit)}
+                  register={register}
+                  errors={errors}
+                />
               ) : (
-                <React.Fragment>
-                  <h2 className="text-2xl font-bold mb-4 text-center">
-                    Sign Up
-                  </h2>
-                  <input
-                    {...register("username", { required: true })}
-                    className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
-                    placeholder="Username"
-                    type="text"
-                  />
-                  {errors.username && (
-                    <p className="text-red-500">Username is required</p>
-                  )}
-                  <input
-                    {...register("email", { required: true })}
-                    className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
-                    placeholder="Email"
-                    type="text"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500">Email is required</p>
-                  )}
-                  <input
-                    {...register("password", { required: true })}
-                    className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
-                    placeholder="Password"
-                    type="password"
-                  />
-                  {errors.password && (
-                    <p className="text-red-500">Password is required</p>
-                  )}
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 w-full"
-                  >
-                    Sign Up
-                  </button>
-                  <p className="text-center mt-4">
-                    Already have an account?{" "}
-                    <span
-                      className="text-blue-500 cursor-pointer"
-                      onClick={goToLoginPage}
-                    >
-                      Login
-                    </span>
-                  </p>
-                </React.Fragment>
+                <SignupForm
+                  goToLoginPage={goToLoginPage}
+                  onSubmit={handleSubmit(onSubmit)}
+                  register={register}
+                  errors={errors}
+                />
               )}
             </form>
           )}

@@ -1,48 +1,32 @@
 const express = require("express");
 const { usermodel} = require("../model/users");
-const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+
+// const { createUser } = require("../controllers/userController");
+// const { loginUser } = require("../controllers/userController");
 
 const router = express.Router();
 
 
-const validateCreateUser = [
-  body("User_ID").isNumeric(),
-  body("User_Name").isString(),
-  body("Email").isEmail(),
-  body("Password").isString(),
-  (req, res, next) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
-      }
-      next();
-  }
-];
-
-const validateUpdateUser = [
-  body("User_ID").isNumeric(),
-  body("User_Name").isString().notEmpty(),
-  body("Email").isString(),
-  body("Password").isString().notEmpty(),
-  (req, res, next) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
-      }
-      next();
-  }
-];
-
-router.post("/users",validateCreateUser, async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
-    const newUser = await usermodel.create(req.body);
+    const { User_Name, Email, Password } = req.body;
+
+    const hashedPassword = await bcrypt.hash(Password, 10); 
+
+    const newUser = await usermodel.create({
+      User_Name,
+      Email,
+      Password: hashedPassword,
+    });
+
     res.status(201).json(newUser);
   } catch (error) {
     next(error);
   }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await usermodel.find();
     res.json(data);
@@ -51,7 +35,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.get("/users/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const user = await usermodel.findById(req.params.id);
     if (!user) {
@@ -63,7 +47,7 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-router.put("/users/:id",validateUpdateUser, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const updatedUser = await usermodel.findByIdAndUpdate(
       req.params.id,
@@ -79,7 +63,7 @@ router.put("/users/:id",validateUpdateUser, async (req, res) => {
   }
 });
 
-router.delete("/users/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const deletedUser = await usermodel.findByIdAndDelete(req.params.id);
     if (!deletedUser) {

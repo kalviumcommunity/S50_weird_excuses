@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState , useEffect} from "react";
 import { AiFillHome, AiFillBell } from "react-icons/ai";
 import { FaBookmark } from "react-icons/fa";
 import Post from "./Post";
@@ -12,17 +12,17 @@ function Mainpage() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/excuse");
-        setExcusesData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/excuse");
+      setExcusesData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const toggleComments = (index) => {
     setShowComments((prevShowComments) => ({
@@ -39,6 +39,7 @@ function Mainpage() {
         excuse={excuse}
         setExcuse={setExcuse}
         setShowPopup={setShowPopup}
+        refetchData={fetchData}
       />
     <div className="w-1/4 bg-gray-200 h-screen p-8">
       <div className="p-4">
@@ -85,6 +86,7 @@ function Mainpage() {
             index={index}
             toggleComments={toggleComments}
             showComments={showComments}
+            refetchData={fetchData}
           />
         ))}
       </div>

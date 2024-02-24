@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-const ExcusePopup = ({ showPopup,setShowPopup }) => {
+const ExcusePopup = ({ showPopup,setShowPopup,refetchData }) => {
     const [excuse, setExcuse] = useState('');
     const [excuses, setExcuses] = useState([]);
     
@@ -22,6 +22,7 @@ const ExcusePopup = ({ showPopup,setShowPopup }) => {
             setExcuses(prevExcuses => [...prevExcuses, response.data]);
             setExcuse(''); 
             setShowPopup(false);
+            refetchData();
         } catch (error) {
             console.error(error.response.data, "error in the link");
         }

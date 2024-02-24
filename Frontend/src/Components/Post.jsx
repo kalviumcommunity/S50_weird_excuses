@@ -4,12 +4,11 @@ import { FaRegComment } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 import anonymous from "../Images/anonymous.png";
 
-const Post = ({ post, index, toggleComments, showComments, setPosts }) => {
+const Post = ({ post, index, toggleComments, showComments, setPosts, refetchData }) => {
   const navigate = useNavigate();
-
+  const [value, setValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [excuse, setExcuse] = useState(post.Excuse);
 
@@ -17,12 +16,8 @@ const Post = ({ post, index, toggleComments, showComments, setPosts }) => {
     try {
       const updatedPost = { ...post, Excuse: excuse };
       await axios.put(`http://localhost:3000/excuse/${post._id}`, updatedPost);
-      console.log("Excuse updated:", excuse);
-      navigate("/firstpage");
       setShowPopup(false);
-      const updatedPosts = [...posts];
-      updatedPosts[index] = updatedPost;
-      setPosts(updatedPosts);
+      refetchData();
     } catch (error) {
       console.error("Error updating excuse:", error);
     }
@@ -31,9 +26,7 @@ const Post = ({ post, index, toggleComments, showComments, setPosts }) => {
   const deleteExcuse = async () => {
     try {
       await axios.delete(`http://localhost:3000/excuse/${post._id}`);
-      console.log("Excuse deleted:", excuse);
-      const updatedPosts = posts.filter((p, i) => i !== index);
-      setPosts(updatedPosts);
+      refetchData();
     } catch (error) {
       console.error("Error deleting excuse:", error);
     }
@@ -104,6 +97,7 @@ const Post = ({ post, index, toggleComments, showComments, setPosts }) => {
             <div className="flex justify-end">
               <button
                 onClick={handleUpdateExcuse}
+                
                 className="bg-blue-500 text-white py-2 px-4 rounded-md mr-2 focus:outline-none"
               >
                 Update

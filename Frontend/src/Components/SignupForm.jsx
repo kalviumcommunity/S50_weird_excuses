@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-const SignupForm = ({goToLoginPage}) => { 
-    const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
+const SignupForm = ({ goToLoginPage }) => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     try {
-        const response = await axios.post("http://localhost:3000/users", data
-          );
+      const response = await axios.post("http://localhost:3000/users", data);
       console.log(response.data);
-          navigate('/firstpage')
+      navigate("/firstpage");
     } catch (error) {
-      console.error(error.response.data,"error in the link");
+      console.error(error.response.data, "error in the link");
     }
   };
 
@@ -29,27 +31,21 @@ const SignupForm = ({goToLoginPage}) => {
         placeholder="Username"
         type="text"
       />
-      {errors.username && (
-        <p className="text-red-500">Username is required</p>
-      )}
+      {errors.username && <p className="text-red-500">Username is required</p>}
       <input
         {...register("Email", { required: true })}
         className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
         placeholder="Email"
         type="text"
       />
-      {errors.email && (
-        <p className="text-red-500">Email is required</p>
-      )}
+      {errors.email && <p className="text-red-500">Email is required</p>}
       <input
         {...register("Password", { required: true })}
         className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
         placeholder="Password"
         type="password"
       />
-      {errors.password && (
-        <p className="text-red-500">Password is required</p>
-      )}
+      {errors.password && <p className="text-red-500">Password is required</p>}
       <button
         type="submit"
         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 w-full"
@@ -59,10 +55,7 @@ const SignupForm = ({goToLoginPage}) => {
       </button>
       <p className="text-center mt-4">
         Already have an account?{" "}
-        <span
-          className="text-blue-500 cursor-pointer"
-          onClick={goToLoginPage} 
-        >
+        <span className="text-blue-500 cursor-pointer" onClick={goToLoginPage}>
           Login
         </span>
       </p>

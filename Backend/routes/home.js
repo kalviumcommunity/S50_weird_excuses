@@ -1,15 +1,25 @@
 const express = require("express");
 const { usermodel} = require("../model/users");
 const bcrypt = require("bcryptjs");
-
+const Joi=require("joi")
 // const { createUser } = require("../controllers/userController");
 // const { loginUser } = require("../controllers/userController");
 
 const router = express.Router();
 
 
+const userSchema = Joi.object({
+  User_Name: Joi.string().required(),
+  Email: Joi.string().email().required(),
+  Password: Joi.string().min(6).required(),
+});
+
 router.post("/", async (req, res, next) => {
   try {
+    const { error } = userSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
     const { User_Name, Email, Password } = req.body;
 
     const hashedPassword = await bcrypt.hash(Password, 10); 

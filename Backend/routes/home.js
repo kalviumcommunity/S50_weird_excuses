@@ -1,18 +1,13 @@
 const express = require("express");
 const { usermodel} = require("../model/users");
 const bcrypt = require("bcryptjs");
-const Joi=require("joi")
+const userSchema=require("../model/uservalidation") ;
 // const { createUser } = require("../controllers/userController");
 // const { loginUser } = require("../controllers/userController");
 
 const router = express.Router();
 
 
-const userSchema = Joi.object({
-  User_Name: Joi.string().required(),
-  Email: Joi.string().email().required(),
-  Password: Joi.string().min(6).required(),
-});
 
 router.post("/", async (req, res, next) => {
   try {

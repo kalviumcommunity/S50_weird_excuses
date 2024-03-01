@@ -1,16 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 const ExcusePopup = ({ showPopup,setShowPopup,refetchData }) => {
     const [excuse, setExcuse] = useState('');
     const [excuses, setExcuses] = useState([]);
+    const username = Cookies.get("username");
     
 
     const handleAddExcuse = async () => {
         try {
             const newExcuse = {
-                User_Name: "john_doe", 
+                User_Name: username, 
                 Excuse: excuse,
                 Comments: [],
                 Likes: 0

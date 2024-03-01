@@ -8,7 +8,6 @@ const userSchema=require("../model/uservalidation") ;
 const router = express.Router();
 
 
-
 router.post("/", async (req, res, next) => {
   try {
     const { error } = userSchema.validate(req.body);

@@ -1,14 +1,13 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-
 let userSchema = new mongoose.Schema({
-    "User_Name": String,
-    "Email": String,
-    "Password": String
-})
+  User_Name: String,
+  Email: String,
+  Password: String,
+});
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("Password")) {
     return next();
   }
@@ -24,13 +23,12 @@ userSchema.pre("save", async function(next) {
 });
 
 let postschema = new mongoose.Schema({
-    "User_Name":String,
-    "Excuse":String,
-    "Comments":Array
-})
+  User_Name: String,
+  Excuse: String,
+  Comments: Array,
+});
 
+const usermodel = mongoose.model("User Detail", userSchema);
+const postmodel = mongoose.model("Excuse", postschema);
 
-const usermodel =mongoose.model("User Detail",userSchema)
-const postmodel=mongoose.model("Excuse",postschema)
-
-module.exports ={usermodel,postmodel};
+module.exports = { usermodel, postmodel };

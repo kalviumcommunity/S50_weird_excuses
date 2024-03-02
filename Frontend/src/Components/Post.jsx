@@ -6,7 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 import anonymous from "../Images/anonymous.png";
 
-const Post = ({ post, index, toggleComments, showComments, setPosts, refetchData }) => {
+const Post = ({
+  post,
+  index,
+  toggleComments,
+  showComments,
+  setPosts,
+  refetchData,
+}) => {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -33,13 +40,13 @@ const Post = ({ post, index, toggleComments, showComments, setPosts, refetchData
   };
 
   return (
-    <div key={index} className="border border-gray-300 p-4 mb-4" style={{ backgroundColor: "#f3f4f6" }}>
+    <div
+      key={index}
+      className="border border-gray-300 p-4 mb-4"
+      style={{ backgroundColor: "#f3f4f6" }}
+    >
       <div className=" mb-4">
-        <img
-          src={anonymous}
-          alt="Profile"
-          className="w-12 h-12 rounded-full"
-        />
+        <img src={anonymous} alt="Profile" className="w-12 h-12 rounded-full" />
         <p className="text-gray-700 text-sm mt-2">{post.User_Name}</p>
       </div>
       <p className="text-gray-800 text-">{post.Excuse}</p>
@@ -75,10 +82,16 @@ const Post = ({ post, index, toggleComments, showComments, setPosts, refetchData
       </div>
 
       <div className="flex mt-2">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mr-2 focus:outline-none" onClick={() => setShowPopup(true)}>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mr-2 focus:outline-none"
+          onClick={() => setShowPopup(true)}
+        >
           Update
         </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none" onClick={deleteExcuse}>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none"
+          onClick={deleteExcuse}
+        >
           Delete
         </button>
       </div>
@@ -97,7 +110,6 @@ const Post = ({ post, index, toggleComments, showComments, setPosts, refetchData
             <div className="flex justify-end">
               <button
                 onClick={handleUpdateExcuse}
-                
                 className="bg-blue-500 text-white py-2 px-4 rounded-md mr-2 focus:outline-none"
               >
                 Update

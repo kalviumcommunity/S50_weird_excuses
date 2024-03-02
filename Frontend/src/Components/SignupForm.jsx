@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const SignupForm = ({ goToLoginPage }) => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const SignupForm = ({ goToLoginPage }) => {
     try {
       const response = await axios.post("http://localhost:3000/users", data);
       console.log(response.data);
+      Cookies.set("username", data.User_Name);
       navigate("/firstpage");
     } catch (error) {
       console.error(error.response.data, "error in the link");

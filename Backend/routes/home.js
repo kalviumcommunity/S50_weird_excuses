@@ -1,13 +1,11 @@
 const express = require("express");
-const { usermodel} = require("../model/users");
+const { usermodel } = require("../model/users");
 const bcrypt = require("bcryptjs");
-const userSchema=require("../model/uservalidation") ;
+const userSchema = require("../model/uservalidation");
 // const { createUser } = require("../controllers/userController");
 // const { loginUser } = require("../controllers/userController");
 
 const router = express.Router();
-
-
 
 router.post("/", async (req, res, next) => {
   try {
@@ -17,7 +15,7 @@ router.post("/", async (req, res, next) => {
     }
     const { User_Name, Email, Password } = req.body;
 
-    const hashedPassword = await bcrypt.hash(Password, 10); 
+    const hashedPassword = await bcrypt.hash(Password, 10);
 
     const newUser = await usermodel.create({
       User_Name,

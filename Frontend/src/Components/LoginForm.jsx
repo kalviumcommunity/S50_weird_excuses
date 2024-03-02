@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ goToSignUpPage }) => {
-  const { register, formState: { errors } } = useForm();
-  const [error, setError] = useState('');
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
+  const [error, setError] = useState("");
   const [userData, setUserData] = useState([]);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   useEffect(() => {
     axios
@@ -23,27 +26,21 @@ const LoginForm = ({ goToSignUpPage }) => {
   }, []);
 
   const handleLogin = async (data) => {
-    // console.log(fo);
     const { email, password } = data;
-    // console.log("Email:", email);
-    // console.log("Password:", password);
-  
-    // Check if the email is present in the database
+
     const user = userData.find((user) => user.email === email);
-    console.log(user)
-  
+    console.log(user);
+
     if (!user) {
       setError("Invalid email or password");
-      return; // Exit early if user with the entered email is not found
+      return;
     }
-  
-    // Check if the entered password matches the user's password
+
     if (user.password !== password) {
       setError("Invalid email or password");
-      return; // Exit early if the password is incorrect
+      return;
     }
-  
-    // If both email and password are correct, proceed to the next page
+
     console.log("Login successful!");
     navigate("/firstpage");
   };
@@ -58,17 +55,13 @@ const LoginForm = ({ goToSignUpPage }) => {
           className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
           placeholder="Email"
           type="text"
-          // value={formData.email}
         />
-        {errors.email && (
-          <p className="text-red-500">Email is required</p>
-        )}
+        {errors.email && <p className="text-red-500">Email is required</p>}
         <input
           {...register("password", { required: true })}
           className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
           placeholder="Password"
           type="password"
-          // value={formData.password}
         />
         {errors.password && (
           <p className="text-red-500">Password is required</p>
@@ -82,10 +75,7 @@ const LoginForm = ({ goToSignUpPage }) => {
       </div>
       <p className="text-center mt-4">
         Don't have an account?{" "}
-        <span
-          className="text-blue-500 cursor-pointer"
-          onClick={goToSignUpPage}
-        >
+        <span className="text-blue-500 cursor-pointer" onClick={goToSignUpPage}>
           Sign Up
         </span>
       </p>

@@ -1,13 +1,12 @@
 import React from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = ({ username, profilePhoto }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("username");
-    navigate("/")
-    
+    navigate("/");
 
     console.log("Logout successful");
   };

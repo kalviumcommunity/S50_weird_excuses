@@ -81,7 +81,7 @@ function Mainpage() {
             </button>
           </div>
           <div>
-            <UserProfile profilePhoto={anonymous} username={username}/>
+            <UserProfile profilePhoto={anonymous} username={username} />
           </div>
         </div>
       </div>

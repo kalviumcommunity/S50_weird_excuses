@@ -4,7 +4,7 @@ const { body, validationResult } = require("express-validator");
 
 const router = express.Router();
 
-router.post("/",async (req, res) => {
+router.post("/",async (req, res,next) => {
   try {
     const newUser = await postmodel.create(req.body);
     res.status(201).json(newUser);
@@ -13,7 +13,7 @@ router.post("/",async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res,next) => {
   try {
     const data = await postmodel.find();
     res.json(data);

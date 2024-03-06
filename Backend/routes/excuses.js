@@ -4,8 +4,6 @@ const { body, validationResult } = require("express-validator");
 
 const router = express.Router();
 
-
-
 router.post("/",async (req, res) => {
   try {
     const newUser = await postmodel.create(req.body);

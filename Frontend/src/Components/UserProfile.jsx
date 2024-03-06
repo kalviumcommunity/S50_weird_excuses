@@ -6,6 +6,7 @@ const UserProfile = ({ username, profilePhoto }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("username");
+    Cookies.remove("Token");
     navigate("/");
 
     console.log("Logout successful");

@@ -16,8 +16,9 @@ const SignupForm = ({ goToLoginPage }) => {
     console.log(data);
     try {
       const response = await axios.post("http://localhost:3000/users", data);
-      console.log(response.data);
+      await console.log(response.data);
       Cookies.set("username", data.User_Name);
+      Cookies.set("Token", response.data.token);
       navigate("/firstpage");
     } catch (error) {
       console.error(error.response.data, "error in the link");

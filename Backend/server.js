@@ -4,6 +4,7 @@ const cors=require("cors")
 const database = require("./config/database");
 const homeroute =require("./routes/home")
 const excuseroute = require("./routes/excuses")
+const cookieParser = require('cookie-parser');
 const app = express()
 const port = process.env.PORT;
 
@@ -11,7 +12,7 @@ const port = process.env.PORT;
 database();
   
 app.use(cors());
-
+app.use(cookieParser());
 app.use(express.json())
 app.use("/users",homeroute)
 app.use("/excuse",excuseroute)

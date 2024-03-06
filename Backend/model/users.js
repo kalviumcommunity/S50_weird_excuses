@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { string } = require("joi");
 
 let userSchema = new mongoose.Schema({
   User_Name: String,
   Email: String,
   Password: String,
+  unique:String
 });
 
 userSchema.pre("save", async function (next) {

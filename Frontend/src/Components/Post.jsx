@@ -12,6 +12,7 @@ const Post = ({
   toggleComments,
   showComments,
   setPosts,
+  selectedUser,
   refetchData,
 }) => {
   const navigate = useNavigate();
@@ -39,7 +40,8 @@ const Post = ({
     }
   };
 
-  return (
+  const shouldDisplayPost = !selectedUser || post.User_Name === selectedUser;
+     return shouldDisplayPost ? (
     <div
       key={index}
       className="border border-gray-300 p-4 mb-4"
@@ -125,7 +127,7 @@ const Post = ({
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Post;

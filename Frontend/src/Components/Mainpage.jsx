@@ -7,6 +7,7 @@ import ExcusePopup from "./AddExcuse";
 import UserProfile from "./UserProfile";
 import anonymous from "../Images/anonymous.png";
 import Cookies from "js-cookie";
+import { EXCUSE_URL,USERS_URL } from "./constant/api";
 
 function Mainpage() {
   const [showComments, setShowComments] = useState({});
@@ -26,7 +27,7 @@ function Mainpage() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/excuse");
+      const response = await axios.get(EXCUSE_URL);
       setExcusesData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -35,7 +36,7 @@ function Mainpage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/users");
+      const response = await axios.get(USERS_URL);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);

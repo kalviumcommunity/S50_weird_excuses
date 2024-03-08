@@ -3,6 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { USERS_URL } from "../constant/api";
 
 const SignupForm = ({ goToLoginPage }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const SignupForm = ({ goToLoginPage }) => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await axios.post("http://localhost:3000/users", data);
+      const response = await axios.post(USERS_URL, data);
       await console.log(response.data);
       Cookies.set("username", data.User_Name);
       Cookies.set("Token", response.data.token);

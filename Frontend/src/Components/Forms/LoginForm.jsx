@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { USERS_URL } from "../constant/api";
 
 const LoginForm = ({ goToSignUpPage }) => {
   const {
@@ -15,7 +16,7 @@ const LoginForm = ({ goToSignUpPage }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/users")
+      .get(USERS_URL)
       .then((res) => {
         // console.log(res.data)
         setUserData(res.data);

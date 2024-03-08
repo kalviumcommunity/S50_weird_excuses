@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { EXCUSE_URL } from "./constant/api";
 
 const ExcusePopup = ({ showPopup, setShowPopup, refetchData }) => {
   const [excuse, setExcuse] = useState("");
@@ -18,7 +19,7 @@ const ExcusePopup = ({ showPopup, setShowPopup, refetchData }) => {
       };
 
       const response = await axios.post(
-        "http://localhost:3000/excuse",
+        EXCUSE_URL,
         newExcuse
       );
       console.log(response.data);

@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import bcrypt from "bcryptjs";
 import guyImage from "../Images/man.png";
 import { useNavigate } from "react-router-dom";
-import SignupForm from "./SignupForm";
-import LoginForm from "./LoginForm";
+import SignupForm from "./Forms/SignupForm";
+import LoginForm from "./Forms/LoginForm";
 
 const LandingPage = () => {
   const {

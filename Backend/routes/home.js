@@ -5,6 +5,8 @@ const userSchema = require("../model/uservalidation");
 const jwt = require("jsonwebtoken")
 const Cookies=require("js-cookie");
 const { cookie } = require("express-validator");
+require('dotenv').config();
+
 
 
 function generateRandomId(length) {
@@ -31,7 +33,7 @@ router.post("/", async (req, res, next) => {
 
     const unique = generateRandomId(24);
 
-    const token = jwt.sign({ unique ,User_Name,Email }, "alwaysbeasmuchweirdaspossible", { expiresIn: "1h" });
+    const token = jwt.sign({ unique ,User_Name,Email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
 
     const newUser = await usermodel.create({

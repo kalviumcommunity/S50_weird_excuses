@@ -3,6 +3,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { EXCUSE_URL } from "./constant/api";
 
 import anonymous from "../Images/anonymous.png";
 
@@ -12,6 +13,7 @@ const Post = ({
   toggleComments,
   showComments,
   setPosts,
+  selectedUser,
   refetchData,
 }) => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Post = ({
   const handleUpdateExcuse = async () => {
     try {
       const updatedPost = { ...post, Excuse: excuse };
-      await axios.put(`http://localhost:3000/excuse/${post._id}`, updatedPost);
+      await axios.put(`${EXCUSE_URL}/${post._id}`, updatedPost);
       setShowPopup(false);
       refetchData();
     } catch (error) {
@@ -32,14 +34,15 @@ const Post = ({
 
   const deleteExcuse = async () => {
     try {
-      await axios.delete(`http://localhost:3000/excuse/${post._id}`);
+      await axios.delete(`${EXCUSE_URL}/${post._id}`);
       refetchData();
     } catch (error) {
       console.error("Error deleting excuse:", error);
     }
   };
 
-  return (
+  const shouldDisplayPost = !selectedUser || post.User_Name === selectedUser;
+     return shouldDisplayPost ? (
     <div
       key={index}
       className="border border-gray-300 p-4 mb-4"
@@ -125,7 +128,7 @@ const Post = ({
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Post;

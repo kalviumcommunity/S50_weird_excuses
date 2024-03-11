@@ -1,2 +1,2 @@
-export const EXCUSE_URL = "http://localhost:3000/excuse";
-export const USERS_URL = "http://localhost:3000/users";
+export const EXCUSE_URL = "https://s50-weird-excuse.onrender.com/excuse";
+export const USERS_URL = "https://s50-weird-excuse.onrender.com/users";

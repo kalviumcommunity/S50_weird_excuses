@@ -30,7 +30,6 @@ const LoginForm = ({ goToSignUpPage }) => {
       return;
     }
 
-    // Assuming user.Password is the hashed password stored in the database
     const passwordMatch = await bcrypt.compare(password, user.Password);
 
     if (!passwordMatch) {

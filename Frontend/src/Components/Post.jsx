@@ -15,11 +15,13 @@ const Post = ({
   setPosts,
   selectedUser,
   refetchData,
+  username,
 }) => {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [excuse, setExcuse] = useState(post.Excuse);
+  const [liked, setLiked] = useState(false);
 
   const handleUpdateExcuse = async () => {
     try {
@@ -41,8 +43,24 @@ const Post = ({
     }
   };
 
-  const shouldDisplayPost = !selectedUser || post.User_Name === selectedUser;
-     return shouldDisplayPost ? (
+  const handleLike = async () => {
+    try {
+      if (!liked) {
+        const updatedPost = { ...post, Likes: post.Likes + 1 };
+        await axios.put(`${EXCUSE_URL}/${post._id}`, updatedPost);
+        setLiked(true);
+        refetchData();
+      }
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
+  };
+
+  const shouldDisplayPost =
+    !selectedUser || post.User_Name === selectedUser;
+  const isPostOwner = post.User_Name === username;
+
+  return shouldDisplayPost ? (
     <div
       key={index}
       className="border border-gray-300 p-4 mb-4"
@@ -54,17 +72,21 @@ const Post = ({
       </div>
       <p className="text-gray-800 text-">{post.Excuse}</p>
       <div className="flex items-center mt-2">
-        <button className="flex items-center mr-4 text-gray-600 hover:text-blue-600 focus:outline-none">
+        {/* <button
+          className="flex items-center mr-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+          onClick={handleLike}
+          disabled={liked}
+        >
           <AiOutlineLike className="w-5 h-5 mr-1" />
           <span className="text-lg">Like</span>
-        </button>
-        <button className="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
+        </button> */}
+        {/* <button className="flex items-center text-gray-600 hover:text-blue-600 focus:outline-none">
           <FaRegComment className="w-5 h-5 mr-1" />
           <span className="text-lg">Comment</span>
-        </button>
+        </button> */}
       </div>
 
-      {showComments[index] && (
+      {/* {showComments[index] && (
         <div className="mt-4">
           {post.Comments.map((comment, commentIndex) => (
             <div key={commentIndex} className="flex mt-2">
@@ -73,8 +95,8 @@ const Post = ({
             </div>
           ))}
         </div>
-      )}
-      <div className="flex mt-1">
+      )} */}
+      {/* <div className="flex mt-1">
         <p className="text-gray-600 text-lg mr-4">Likes: {post.Likes}</p>
         <p
           className="text-gray-600 cursor-pointer"
@@ -82,22 +104,24 @@ const Post = ({
         >
           Comments: {post.Comments.length}
         </p>
-      </div>
+      </div> */}
 
-      <div className="flex mt-2">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mr-2 focus:outline-none"
-          onClick={() => setShowPopup(true)}
-        >
-          Update
-        </button>
-        <button
-          className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none"
-          onClick={deleteExcuse}
-        >
-          Delete
-        </button>
-      </div>
+      {isPostOwner && (
+        <div className="flex mt-2">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mr-2 focus:outline-none"
+            onClick={() => setShowPopup(true)}
+          >
+            Update
+          </button>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none"
+            onClick={deleteExcuse}
+          >
+            Delete
+          </button>
+        </div>
+      )}
 
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">

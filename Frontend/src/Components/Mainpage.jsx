@@ -136,6 +136,7 @@ function Mainpage() {
               showComments={showComments}
               selectedUser={selectedUser}
               refetchData={fetchData}
+              username={username}
             />
           );
         })}

@@ -18,8 +18,9 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    console.log("Form data:", data);
     try {
-      const hashedPassword = await bcrypt.hash(data.password, 10);
+      const hashedPassword = await bcrypt.hash(data.Password, 10);
       console.log("Hashed password:", hashedPassword);
       setRegistrationSuccess(true);
       handleLogin();
@@ -27,6 +28,7 @@ const LandingPage = () => {
       console.error("Error:", error);
     }
   };
+  
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -130,21 +132,23 @@ const LandingPage = () => {
                 </div>
               )}
 
-              {isLoginPage ? (
-                <LoginForm
-                  goToSignUpPage={goToSignUpPage}
-                  onSubmit={handleSubmit(onSubmit)}
-                  register={register}
-                  errors={errors}
-                />
-              ) : (
+              {
+              isLoginPage ? (
                 <SignupForm
-                  goToLoginPage={goToLoginPage}
+                goToLoginPage={goToSignUpPage}
+                onSubmit={handleSubmit(onSubmit)}
+                register={register}
+                errors={errors}
+                />
+                ) : (
+                <LoginForm
+                  goToSignUpPage={goToLoginPage}
                   onSubmit={handleSubmit(onSubmit)}
                   register={register}
                   errors={errors}
                 />
-              )}
+              )
+              }
             </form>
           )}
         </div>

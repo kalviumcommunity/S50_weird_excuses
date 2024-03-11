@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { USERS_URL } from "../constant/api";
+import bcrypt from "bcryptjs";
 
 const LoginForm = ({ goToSignUpPage }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm();
   const [error, setError] = useState("");
   const [userData, setUserData] = useState([]);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     axios
       .get(USERS_URL)
       .then((res) => {
-        // console.log(res.data)
         setUserData(res.data);
       })
       .catch((err) => {
@@ -26,18 +22,18 @@ const LoginForm = ({ goToSignUpPage }) => {
       });
   }, []);
 
-  const handleLogin = async (data) => {
-    const { email, password } = data;
-
-    const user = userData.find((user) => user.email === email);
-    console.log(user);
+  const handleLogin = async () => {
+    const user = userData.find((user) => user.Email === email);
 
     if (!user) {
       setError("Invalid email or password");
       return;
     }
 
-    if (user.password !== password) {
+    // Assuming user.Password is the hashed password stored in the database
+    const passwordMatch = await bcrypt.compare(password, user.Password);
+
+    if (!passwordMatch) {
       setError("Invalid email or password");
       return;
     }
@@ -52,21 +48,19 @@ const LoginForm = ({ goToSignUpPage }) => {
       {error && <p className="text-red-500">{error}</p>}
       <div>
         <input
-          {...register("email", { required: true })}
           className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
           placeholder="Email"
           type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        {errors.email && <p className="text-red-500">Email is required</p>}
         <input
-          {...register("password", { required: true })}
           className="w-full px-3 py-2 mb-2 border rounded focus:outline-none focus:border-blue-500"
           placeholder="Password"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {errors.password && (
-          <p className="text-red-500">Password is required</p>
-        )}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 w-full"
           onClick={handleLogin}

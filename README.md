@@ -1,8 +1,7 @@
 
 # List of Outrageous Excuses for Being Late to Work or School
 
-## Deployed Link :- [Weird-excuses](https://weirdest-excuses.onrender.com)
-## Front-end :-[Weird-excuses-frontend](https://weirdexcuses.pages.dev/)
+## Deployed Link :- [Weird-excuses](https://65ee8bfd38e711f6035ec280--celadon-gumption-0bb486.netlify.app/)
 
 ## Idea
 This project allows users to share their weirdest and most outrageous excuses for being late to work or school. Users can submit their excuses, which will be listed in order from the most funny to the least funny.

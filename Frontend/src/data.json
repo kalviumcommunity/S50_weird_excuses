@@ -1,0 +1,64 @@
+[
+  {
+    "_id": {"$oid": "65c9ec433ebe64d3b6e5618c"},
+    "User_Name": "john_doe",
+    "Excuse": "I was stuck in traffic",
+    "Comments": [
+      {"Comment": "Hope you're okay!", "Comment_By": "jane_smith"},
+      {"Comment": "Take care next time.", "Comment_By": "mike_jackson"}
+    ],
+    "Likes": 12
+  },
+  {
+    "_id": {"$oid": "65c9ec433ebe64d3b6e5618d"},
+    "User_Name": "alice",
+    "Excuse": "I overslept",
+    "Comments": [
+      {"Comment": "It happens to the best of us!", "Comment_By": "bob"},
+      {"Comment": "Hope you're not too late!", "Comment_By": "charlie"},
+      {"Comment": "Might Have to clarify this with Mike", "Comment_By": "charlie"}
+    ],
+    "Likes": 8
+  },
+  {
+    "_id": {"$oid": "65c9ec433ebe64d3b6e5618e"},
+    "User_Name": "jane_smith",
+    "Excuse": "My dog ate my homework",
+    "Comments": [
+      {"Comment": "Hope your dog is okay!", "Comment_By": "mike_jackson"},
+      {"Comment": "That's a classic excuse!", "Comment_By": "Shahbaz_Aman"}
+    ],
+    "Likes": 15
+  },
+  {
+    "_id": {"$oid": "65c9ec433ebe64d3b6e5618f"},
+    "User_Name": "mike_jackson",
+    "Excuse": "I overslept",
+    "Comments": [
+      {"Comment": "Happens to everyone!", "Comment_By": "sarah_williams"},
+      {"Comment": "Don't worry, take it easy!", "Comment_By": "john_doe"},
+      {"Comment": "Alice did too what a coincidence!,or was it?", "Comment_By": "Shahbaz_Aman"}
+    ],
+    "Likes": 10
+  },
+  {
+    "_id": {"$oid": "65c9ec433ebe64d3b6e56190"},
+    "User_Name": "sarah_williams",
+    "Excuse": "I had a family emergency",
+    "Comments": [
+      {"Comment": "Hope everything is okay now!", "Comment_By": "mike_jackson"},
+      {"Comment": "Take care!", "Comment_By": "john_doe"}
+    ],
+    "Likes": 20
+  },
+  {
+    "_id": {"$oid": "65c9ec433ebe64d3b6e56191"},
+    "User_Name": "chris_brown",
+    "Excuse": "My internet was down",
+    "Comments": [
+      {"Comment": "That's frustrating!", "Comment_By": "alice"},
+      {"Comment": "Hope it's back up soon!", "Comment_By": "mike_jackson"}
+    ],
+    "Likes": 5
+  }
+]
